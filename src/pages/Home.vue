@@ -2,21 +2,28 @@
   <div class="wrapper-content wrapper-content--fixed">
     <section>
       <div class="container">
+
         <!-- errors -->
         <div class="error" v-if="error" style="margin-bottom:20px;">
           <p>{{ error }}</p>
         </div>
+
         <!-- search -->
-        <search :value="search" placeholder="Type username..." @search=" search = $event" />
+        <search
+          :value="search" 
+          placeholder="Type username..." 
+          @search=" search = $event" />
+
         <!-- buttons -->
         <button v-if="!repos" class="btn btnPrimary" @click="getRepos">Search</button>
         <button v-else class="btn btnPrimary" @click="getRepos">Search Again</button>
+
         <!-- user -->
         <div class="user__wrapper">
           <div v-if="repos" class="user-item">
               <img :src="userInfo.img" alt="">
-              <span>Name: {{userInfo.name}}</span>
-              <span>Published of repos: {{userInfo.publicRepos}}</span>
+              <span class="user-item__name">{{userInfo.name}}</span>
+              <span class="user-item__count">Published of repos: {{userInfo.publicRepos}}</span>
           </div>
         </div>
 
@@ -30,6 +37,7 @@
               </tr>
             </thead>
           </table>
+
           <!-- item -->
           <div class="repos-item" v-for="repo in reposSort" :key="repo.id">
             <div class="repos-info">
@@ -37,6 +45,7 @@
               <span>{{ repo.stargazers_count }} &#127775;</span>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -56,7 +65,7 @@ export default {
   },
   data() {
     return {
-      search: '',
+      search: 'github',
       error: '',
       repos: null,
       userInfo: {},
@@ -67,6 +76,9 @@ export default {
         length: 5
       }
     }
+  },
+  mounted() {
+    this.getRepos()
   },
   computed: {
     // Sorting
@@ -91,6 +103,7 @@ export default {
   },
   methods: {
     async getRepos() {
+      this.repos = null
       try {
         const [API_URL_GITHUB, usersInfo] = await Promise.all([
             axios.get(`https://api.github.com/users/${this.search}/repos`), //запрос repos
@@ -153,6 +166,10 @@ button {
   display: flex;
   align-items: left;
   flex-direction: column;
+  &__name {
+    font-size: 30px;
+    font-weight: 600;
+  }
 }
 img {
   border-radius: 20px;
