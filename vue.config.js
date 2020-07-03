@@ -5,5 +5,5 @@ module.exports = {
 		: '/',
 	assetsDir: '',
 	productionSourceMap: false,
-	filenameHashing: false
+	// filenameHashing: false
   }
