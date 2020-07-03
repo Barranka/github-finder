@@ -25,7 +25,7 @@ export default {
 		}
  	},
 	methods: {
-	//Paginatio
+	//Pagination
     prevPage () {
       if (this.page.current > 1) this.page.current -= 1
     },
