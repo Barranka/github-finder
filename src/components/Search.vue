@@ -8,6 +8,7 @@
     <!-- Search input -->
     <input type="text" :placeholder="placeholder" v-model="search"/>
 
+
   </div>
 </template>
 
