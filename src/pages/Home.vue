@@ -10,8 +10,8 @@
 
         <!-- search -->
         <search
-          :value="search" 
-          placeholder="Type username..." 
+          :value="search"
+          placeholder="Type username..."
           @search=" search = $event" />
 
         <!-- buttons -->
@@ -104,6 +104,7 @@ export default {
   methods: {
     async getRepos() {
       this.repos = null
+      this.page.current = 1
       try {
         const [API_URL_GITHUB, usersInfo] = await Promise.all([
             axios.get(`https://api.github.com/users/${this.search}/repos`), //запрос repos
@@ -132,7 +133,7 @@ export default {
         this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc"
       }
       this.currentSort = e
-    },
+    }
   }
 }
 </script>
@@ -170,6 +171,9 @@ button {
     font-size: 30px;
     font-weight: 600;
   }
+}
+.count-page {
+  text-align: center;
 }
 img {
   border-radius: 20px;
